@@ -36,27 +36,48 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Recipes"),
         backgroundColor: Colors.lime[600],
       ),
-      body: SafeArea(
-        child: receipeModel == null
-            ? const Center(
-                child: CircularProgressIndicator(),
-              ) // Show loader while null
-            : Column(
-                children: [
-                  // 2. Use Expanded ONLY here to let the List fill the screen
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: receipeModel?.recipes?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text('${receipeModel?.recipes?[index].name}'),
-                          leading: const Icon(Icons.restaurant_menu),
-                        );
-                      },
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 20.0),
+              Icon(Icons.fastfood, size: 52.0, color: Colors.black),
+              SizedBox(height: 20.0),
+              receipeModel == null
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    ) // Show loader while null
+                  : Container(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1.5),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      height: MediaQuery.of(context).size.height - 260,
+                      child: ListView.builder(
+                        itemCount: receipeModel?.recipes?.length ?? 0,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 4.0,
+                              horizontal: 10.0,
+                            ),
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.lime[600]!),
+                            ),
+                            child: Text(
+                              '${receipeModel?.recipes?[index].name}',
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lime[600],
