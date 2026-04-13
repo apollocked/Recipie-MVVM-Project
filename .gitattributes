@@ -1,0 +1,27 @@
+# Collapse and ignore native folders in GitHub language statistics
+android/* linguist-documentation
+ios/* linguist-documentation
+windows/* linguist-documentation
+linux/* linguist-documentation
+macos/* linguist-documentation
+web/* linguist-documentation
+
+# Explicitly mark Dart files as the primary language
+*.dart linguist-detectable=true
+# Mac-specific
+.DS_Store
+
+# Windows-specific
+/windows/flutter/ephemeral/
+/windows/CMakeCache.txt
+/windows/CMakeFiles/
+/windows/CMakeLists.txt.user
+
+# Local environment secrets
+.env*
+!.env.example
+
+# Flutter internal
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
