@@ -45,4 +45,22 @@ app.*.map.json
 /android/app/release
 # Secrets
 .env
+# Mac/Windows system files
+.DS_Store
+Thumbs.db
 
+# Flutter/Dart internals
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
+
+# Windows specific build artifacts (The source of your C++ stats)
+/windows/flutter/ephemeral/
+/windows/CMakeCache.txt
+/windows/CMakeFiles/
+/windows/CMakeLists.txt.user
+
+# Environment secrets (Good that you have .env, adding patterns)
+.env*
+!.env.example
