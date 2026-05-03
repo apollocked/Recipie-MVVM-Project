@@ -10,9 +10,7 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-
   ReceipeModel? receipeModel;
-
   final Set<int> _favorites = {};
 
   @override
@@ -36,7 +34,14 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.search, color: deepNavy),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(
+                  provider.recipeModel?.recipes ?? [],
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -48,6 +53,61 @@ class HomeScreen extends StatelessWidget {
               receipeModel: receipeModel,
               favorites: _favorites,
             ),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  final List<Recipes> receipeSearchList;
+
+  CustomSearchDelegate(this.receipeSearchList);
+
+  List<Recipes> _getMatches() {
+    return receipeSearchList
+        .where(
+          (recipe) =>
+              recipe.name?.toLowerCase().contains(query.toLowerCase()) ?? false,
+        )
+        .toList();
+  }
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [IconButton(onPressed: () => query = "", icon: Icon(Icons.clear))];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () => close(context, null),
+      icon: Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final matches = _getMatches();
+    return _buildSearchList(matches);
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final matches = _getMatches();
+    return _buildSearchList(matches);
+  }
+
+  Widget _buildSearchList(List<Recipes> recipes) {
+    return ListView.builder(
+      itemCount: recipes.length,
+      itemBuilder: (context, index) {
+        final result = recipes[index];
+        return ListTile(
+          title: Text(result.name ?? "Unknown"),
+          leading: result.image != null
+              ? CircleAvatar(backgroundImage: NetworkImage(result.image!))
+              : CircleAvatar(child: Icon(Icons.image_not_supported)),
+        );
+      },
     );
   }
 }

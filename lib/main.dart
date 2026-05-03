@@ -8,7 +8,6 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
   runApp(
     ChangeNotifierProvider(
-      // The ..fetchRecipes() triggers the call immediately on creation
       create: (_) => RecipeProvider()..fetchRecipes(),
       child: const MyApp(),
     ),
@@ -17,8 +16,6 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
