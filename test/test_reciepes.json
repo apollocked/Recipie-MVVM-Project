@@ -1,0 +1,25 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Classic Pizza",
+      "ingredients": ["Dough", "Tomato"],
+      "instructions": ["Bake it"],
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 20,
+      "servings": 4,
+      "difficulty": "Easy",
+      "cuisine": "Italian",
+      "caloriesPerServing": 300,
+      "tags": ["Dinner"],
+      "userId": 1,
+      "image": "https://example.com/pizza.png",
+      "rating": 4.8,
+      "reviewCount": 100,
+      "mealType": ["Main Course"]
+    }
+  ],
+  "total": 1,
+  "skip": 0,
+  "limit": 1
+}

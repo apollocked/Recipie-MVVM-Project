@@ -7,7 +7,9 @@ import 'package:dio_receipe/data/model/receipe_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RecepieService {
-  final dio = Dio();
+  final Dio dio;
+
+  RecepieService([Dio? dio]) : dio = dio ?? Dio();
   String get _baseUrl => dotenv.env['API_URL'] ?? "";
   Future<ReceipeModel> getRecepie() async {
     try {
