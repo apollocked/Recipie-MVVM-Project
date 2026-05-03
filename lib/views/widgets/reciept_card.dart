@@ -2,22 +2,18 @@ import 'dart:ui';
 
 import 'package:dio_receipe/core/utils/colors.dart';
 import 'package:dio_receipe/data/model/receipe_model.dart';
-import 'package:dio_receipe/view_model/recepies_provider.dart';
+import 'package:dio_receipe/view_model/recipe_bloc.dart';
+import 'package:dio_receipe/view_model/recipe_event.dart';
 import 'package:dio_receipe/views/widgets/custom_icon_design.dart';
 import 'package:dio_receipe/views/widgets/resepie_detail_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecieptCard extends StatelessWidget {
-  const RecieptCard({
-    super.key,
-    required this.recipe,
-    required this.isFav,
-    required this.provider,
-  });
+  const RecieptCard({super.key, required this.recipe, required this.isFav});
 
   final Recipes recipe;
   final bool isFav;
-  final RecipeProvider provider;
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +111,9 @@ class RecieptCard extends StatelessWidget {
               heroTag: "fav_${recipe.id}",
               backgroundColor: isFav ? Colors.redAccent : Colors.white,
               elevation: 0,
-              // Simplified toggle call (isFav is already known inside the provider logic)
-              onPressed: () => provider.toggleFavorite(recipe.id ?? 0),
+              onPressed: () => context.read<RecipeBloc>().add(
+                ToggleFavoriteEvent(recipe.id ?? 0),
+              ),
               child: Icon(
                 isFav ? Icons.favorite : Icons.favorite_border,
                 color: isFav ? Colors.white : deepNavy,
