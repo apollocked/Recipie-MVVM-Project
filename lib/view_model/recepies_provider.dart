@@ -6,22 +6,46 @@ class RecipeProvider extends ChangeNotifier {
   ReceipeModel? _recipeModel;
   bool _isLoading = false;
   String? _errorMessage;
-
-  // 1. Declare the favorites set
+  bool _isSearching = false;
+  bool get isSearching => _isSearching;
+  String _searchQuery = '';
+  String get searchQuery => _searchQuery;
   final Set<int> _favorites = {};
 
   ReceipeModel? get recipeModel => _recipeModel;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
-  // 2. Add a getter for favorites
   Set<int> get favorites => _favorites;
+  void updateSearchQuery(String query) {
+    if (query == _searchQuery) return;
+
+    _searchQuery = query;
+    notifyListeners();
+  }
+
+  void toggleSearch() {
+    _isSearching = !_isSearching;
+    notifyListeners();
+  }
+
+  List<Recipes> get filteredRecipes {
+    if (_searchQuery.isEmpty) {
+      return recipeModel?.recipes ?? [];
+    }
+    return (recipeModel?.recipes ?? [])
+        .where(
+          (recipe) =>
+              recipe.name?.toLowerCase().contains(_searchQuery.toLowerCase()) ??
+              false,
+        )
+        .toList();
+  }
 
   Future<void> fetchRecipes() async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
-
     try {
       _recipeModel = await RecepieService().getRecepie();
     } catch (e) {
@@ -32,13 +56,12 @@ class RecipeProvider extends ChangeNotifier {
     }
   }
 
-  // 3. The toggle logic is now connected to the _favorites set
   void toggleFavorite(int id) {
     if (_favorites.contains(id)) {
       _favorites.remove(id);
     } else {
       _favorites.add(id);
     }
-    notifyListeners(); // This ensures the heart icon updates immediately
+    notifyListeners();
   }
 }

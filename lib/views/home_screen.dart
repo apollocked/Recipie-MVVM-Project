@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   ReceipeModel? receipeModel;
   final Set<int> _favorites = {};
-
+  final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<RecipeProvider>();
@@ -32,82 +32,66 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: deepNavy),
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: CustomSearchDelegate(
-                  provider.recipeModel?.recipes ?? [],
+          if (provider.isSearching)
+            IconButton(
+              icon: Icon(Icons.search, color: deepNavy),
+              onPressed: () {
+                provider.toggleSearch();
+              },
+            )
+          else
+            Container(
+              margin: EdgeInsets.only(right: 10),
+              width: MediaQuery.of(context).size.width * 0.65,
+
+              decoration: BoxDecoration(
+                color: bgSlate,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: TextField(
+                controller: searchController,
+                onChanged: (value) {
+                  provider.updateSearchQuery(value);
+                },
+                decoration: InputDecoration(
+                  hintText: "Search recipes...",
+                  suffixIcon: IconButton(
+                    icon: provider.searchQuery.isNotEmpty
+                        ? Text("Clear")
+                        : Icon(Icons.arrow_forward_ios, color: deepNavy),
+                    onPressed: () {
+                      if (provider.searchQuery.isNotEmpty) {
+                        provider.updateSearchQuery("");
+                        searchController.clear();
+                      } else {
+                        provider.toggleSearch();
+                      }
+                    },
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-              );
-            },
-          ),
+              ),
+            ),
+          //
         ],
       ),
       body: provider.isLoading
           ? Center(child: CircularProgressIndicator(color: brandAmber))
           : provider.errorMessage != null
           ? Center(child: Text("Error: ${provider.errorMessage}"))
-          : CustomReceipeList(
+          : provider.searchQuery.isEmpty
+          ? CustomReceipeList(
               receipeModel: receipeModel,
               favorites: _favorites,
+              recipes: provider.recipeModel?.recipes ?? [],
+            )
+          : CustomReceipeList(
+              recipes: provider.filteredRecipes,
+              receipeModel: null,
+              favorites: _favorites,
             ),
-    );
-  }
-}
-
-class CustomSearchDelegate extends SearchDelegate {
-  final List<Recipes> receipeSearchList;
-
-  CustomSearchDelegate(this.receipeSearchList);
-
-  List<Recipes> _getMatches() {
-    return receipeSearchList
-        .where(
-          (recipe) =>
-              recipe.name?.toLowerCase().contains(query.toLowerCase()) ?? false,
-        )
-        .toList();
-  }
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [IconButton(onPressed: () => query = "", icon: Icon(Icons.clear))];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      onPressed: () => close(context, null),
-      icon: Icon(Icons.arrow_back),
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    final matches = _getMatches();
-    return _buildSearchList(matches);
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    final matches = _getMatches();
-    return _buildSearchList(matches);
-  }
-
-  Widget _buildSearchList(List<Recipes> recipes) {
-    return ListView.builder(
-      itemCount: recipes.length,
-      itemBuilder: (context, index) {
-        final result = recipes[index];
-        return ListTile(
-          title: Text(result.name ?? "Unknown"),
-          leading: result.image != null
-              ? CircleAvatar(backgroundImage: NetworkImage(result.image!))
-              : CircleAvatar(child: Icon(Icons.image_not_supported)),
-        );
-      },
     );
   }
 }

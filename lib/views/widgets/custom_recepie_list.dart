@@ -7,18 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CustomReceipeList extends StatelessWidget {
-  // Removed required favorites and recipeModel from constructor as Provider handles them
+  final List<Recipes> recipes;
   const CustomReceipeList({
     super.key,
     ReceipeModel? receipeModel,
     required Set<int> favorites,
+    required this.recipes,
   });
 
   @override
   Widget build(BuildContext context) {
-    // Listen to the provider
-    final provider = context.watch<RecipeProvider>();
-    final recipes = provider.recipeModel?.recipes ?? [];
+    final provider = Provider.of<RecipeProvider>(context);
 
     return ListView.builder(
       padding: const EdgeInsets.symmetric(vertical: 20),
