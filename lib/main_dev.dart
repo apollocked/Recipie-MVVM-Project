@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
-  final global = Global(flavorName: "DEV");
-  await dotenv.load(fileName: ".env");
+  final global = Global(
+    flavorName: dotenv.env['FLAVOR'] ?? "dev",
+    baseURL: dotenv.env['API_URL'] ?? "",
+  );
+  await dotenv.load(fileName: ".env.dev");
   runApp(MyApp(global: global));
 }

@@ -1,6 +1,6 @@
 class Global {
-  String baseURL = '';
+  final String baseURL;
   final String flavorName;
 
-  Global({required this.flavorName, this.baseURL = ''});
+  Global({required this.flavorName, required this.baseURL});
 }
