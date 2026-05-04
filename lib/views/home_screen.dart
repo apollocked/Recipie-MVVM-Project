@@ -31,29 +31,36 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [CustomSearchBar()],
       ),
-      body: BlocBuilder<RecipeBloc, RecipeState>(
-        builder: (context, state) {
-          if (state is RecipeInitial) {
-            context.read<RecipeBloc>().add(FetchRecipesEvent());
-            return const SizedBox.shrink();
-          }
-
-          if (state is RecipeLoading) {
-            return Center(child: CircularProgressIndicator(color: brandAmber));
-          }
-
-          if (state is RecipeError) {
-            return Center(child: Text("Error: ${state.message}"));
-          }
-
-          if (state is RecipeLoaded) {
-            return state.filteredRecipes.isEmpty
-                ? const Center(child: Text("No recipes found"))
-                : CustomReceipeList(filteredRecipes: state.filteredRecipes);
-          }
-
-          return const SizedBox.shrink();
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<RecipeBloc>().add(FetchRecipesEvent());
         },
+        child: BlocBuilder<RecipeBloc, RecipeState>(
+          builder: (context, state) {
+            if (state is RecipeInitial) {
+              context.read<RecipeBloc>().add(FetchRecipesEvent());
+              return const SizedBox.shrink();
+            }
+
+            if (state is RecipeLoading) {
+              return Center(
+                child: CircularProgressIndicator(color: brandAmber),
+              );
+            }
+
+            if (state is RecipeError) {
+              return Center(child: Text("Error: ${state.message}"));
+            }
+
+            if (state is RecipeLoaded) {
+              return state.filteredRecipes.isEmpty
+                  ? const Center(child: Text("No recipes found"))
+                  : CustomReceipeList(filteredRecipes: state.filteredRecipes);
+            }
+
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

@@ -7,7 +7,6 @@ import 'package:dio_receipe/view_model/recipe_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-// 1. Create a Mock class
 class MockRecipeService extends Mock implements RecepieService {}
 
 void main() {
