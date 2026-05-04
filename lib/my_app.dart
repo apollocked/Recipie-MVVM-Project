@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RecipeBloc(RecepieService(baseUrl: global.baseURL)),
+      create: (context) => RecipeBloc(RecepieService(baseURL: global.baseURL)),
       child: MaterialApp(
         title: 'Recipe App',
         home: HomeScreen(flavorName: global.flavorName),

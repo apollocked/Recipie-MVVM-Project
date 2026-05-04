@@ -21,7 +21,7 @@ void main() {
     );
 
     mockDio = MockDio();
-    recepieService = RecepieService(baseUrl: "", dio: mockDio);
+    recepieService = RecepieService(baseURL: "");
   });
 
   tearDown(() {

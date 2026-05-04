@@ -1,20 +1,22 @@
+// ignore_for_file: unused_local_variable
+
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:dio_receipe/data/model/receipe_model.dart';
 
 class RecepieService {
-  final Dio dio;
-  final String baseUrl; // Add this field
-
-  // Update the constructor to require the baseUrl
-  RecepieService({required this.baseUrl, Dio? dio}) : dio = dio ?? Dio();
-
+  final dio = Dio();
+  final String baseURL;
+  RecepieService({required this.baseURL});
+  String get _baseUrl => baseURL;
   Future<ReceipeModel> getRecepie() async {
     try {
-      // Use the injected baseUrl instead of reaching into dotenv directly
-      Response apiResponse = await dio.get(baseUrl);
+      Response apiResponse = await dio.get(_baseUrl);
 
       return ReceipeModel.fromJson(apiResponse.data);
     } catch (e) {
+      log(e.toString());
       throw "The error is $e";
     }
   }
