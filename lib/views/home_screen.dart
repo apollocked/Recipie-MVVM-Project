@@ -6,6 +6,7 @@ import 'package:dio_receipe/view_model/recipe_event.dart';
 import 'package:dio_receipe/view_model/recipe_state.dart';
 import 'package:dio_receipe/views/widgets/custom_recepie_list.dart';
 import 'package:dio_receipe/views/widgets/custom_search_bar.dart';
+import 'package:dio_receipe/views/widgets/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -55,7 +56,7 @@ class HomeScreen extends StatelessWidget {
 
             if (state is RecipeLoaded) {
               return state.filteredRecipes.isEmpty
-                  ? const Center(child: Text("No recipes found"))
+                  ? EmptyRecipeState()
                   : CustomReceipeList(filteredRecipes: state.filteredRecipes);
             }
 
