@@ -23,7 +23,7 @@ void main() {
   Widget createWidgetUnderTest() {
     return BlocProvider<RecipeBloc>(
       create: (_) => recipeBloc,
-      child: const MaterialApp(home: HomeScreen()),
+      child: const MaterialApp(home: HomeScreen(flavorName: 'test')),
     );
   }
 

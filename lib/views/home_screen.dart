@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.flavorName});
+  final String flavorName;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: brandAmber,
         elevation: 0,
         title: Text(
-          "RECIPES",
+          "RECIPES - $flavorName",
           style: TextStyle(
             color: deepNavy,
             fontWeight: FontWeight.w900,
