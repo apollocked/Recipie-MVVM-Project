@@ -37,16 +37,19 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
-    flavorDimensions "default"
+    flavorDimensions +="default"
 
-    productFlavors{
-
-        prod{
-            resValue "string", "app_name", "dio_receipe"
-        }   
-        dev{
-            resValue "string", "app_name", "dio_receipe-dev"
-            applicationIdSuffix ".dev"
+    productFlavors {
+       
+        create("prod") {
+            dimension = "default"
+            resValue("string", "app_name", "dio_receipe")
+        }
+        
+        create("dev") {
+            dimension = "default"
+            resValue("string", "app_name", "dio_receipe-dev")
+            applicationIdSuffix = ".dev"
         }
     }
 
