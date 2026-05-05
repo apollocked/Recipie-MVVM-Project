@@ -4,7 +4,7 @@ import 'package:dio_receipe/data/model/receipe_model.dart';
 import 'package:dio_receipe/view_model/recipe_bloc.dart';
 import 'package:dio_receipe/view_model/recipe_event.dart';
 import 'package:dio_receipe/view_model/recipe_state.dart';
-import 'package:dio_receipe/views/home_screen.dart';
+import 'package:dio_receipe/views/Pages/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
