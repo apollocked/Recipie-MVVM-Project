@@ -57,7 +57,7 @@ class _CustomSearchBarState extends State<CustomSearchBar>
               animation: controller!,
               builder: (BuildContext context, _) {
                 return Container(
-                  margin: const EdgeInsets.only(right: 10),
+                  margin: const EdgeInsets.only(right: 10, bottom: 4),
                   width:
                       MediaQuery.of(context).size.width *
                       0.6 *

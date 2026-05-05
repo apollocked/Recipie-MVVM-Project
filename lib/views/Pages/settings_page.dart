@@ -1,3 +1,4 @@
+import 'package:dio_receipe/views/layout/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -6,6 +7,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: customAppBar('Settings'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [Center(child: Text('SettingsPage'))],

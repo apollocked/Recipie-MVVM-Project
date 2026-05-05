@@ -1,3 +1,4 @@
+import 'package:dio_receipe/views/layout/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class LikedReciepesPage extends StatelessWidget {
@@ -5,6 +6,9 @@ class LikedReciepesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('LikedReciepesPage')));
+    return Scaffold(
+      appBar: customAppBar('Liked Reciepes'),
+      body: Center(child: Text('LikedReciepesPage')),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:dio_receipe/views/layout/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class InfoPage extends StatelessWidget {
@@ -5,6 +6,9 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('InfoPage')));
+    return Scaffold(
+      appBar: customAppBar('Info'),
+      body: Center(child: Text('InfoPage')),
+    );
   }
 }

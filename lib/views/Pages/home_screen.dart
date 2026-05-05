@@ -4,6 +4,7 @@ import 'package:dio_receipe/core/utils/colors.dart';
 import 'package:dio_receipe/view_model/recipe_bloc.dart';
 import 'package:dio_receipe/view_model/recipe_event.dart';
 import 'package:dio_receipe/view_model/recipe_state.dart';
+import 'package:dio_receipe/views/layout/custom_appbar.dart';
 import 'package:dio_receipe/views/widgets/custom_recepie_list.dart';
 import 'package:dio_receipe/views/widgets/custom_search_bar.dart';
 import 'package:dio_receipe/views/widgets/empty_state.dart';
@@ -18,21 +19,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgSlate,
-      appBar: AppBar(
-        toolbarHeight: 80,
-        backgroundColor: brandAmber,
-        elevation: 0,
-        title: Text(
-          "RECIPES - $flavorName",
-          style: TextStyle(
-            color: deepNavy,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 2,
-            fontSize: 20,
-          ),
-        ),
-        actions: [CustomSearchBar()],
-      ),
+      appBar: customAppBar('Recipes - $flavorName', child: CustomSearchBar()),
+
       body: RefreshIndicator(
         onRefresh: () async {
           context.read<RecipeBloc>().add(FetchRecipesEvent());
