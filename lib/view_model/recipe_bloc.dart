@@ -14,6 +14,13 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<SearchRecipesEvent>(_onSearchRecipes);
     on<ToggleSearchEvent>(_onToggleSearch);
     on<ToggleFavoriteEvent>(_onToggleFavorite);
+    on<FetchFavoritesEvent>(_onFetchFavorites);
+  }
+
+  List<Recipes> _getFavoriteList() {
+    return _allRecipes
+        .where((recipe) => _favorites.contains(recipe.id))
+        .toList();
   }
 
   Future<void> _onFetchRecipes(
@@ -28,11 +35,52 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
         RecipeLoaded(
           recipes: _allRecipes,
           filteredRecipes: _allRecipes,
+          favoriteRecipes: _getFavoriteList(),
           favorites: _favorites,
         ),
       );
     } catch (e) {
       emit(RecipeError(e.toString()));
+    }
+  }
+
+  void _onToggleFavorite(ToggleFavoriteEvent event, Emitter<RecipeState> emit) {
+    if (state is RecipeLoaded) {
+      final currentState = state as RecipeLoaded;
+
+      if (_favorites.contains(event.recipeId)) {
+        _favorites.remove(event.recipeId);
+      } else {
+        _favorites.add(event.recipeId);
+      }
+
+      final favList = _getFavoriteList();
+
+      emit(
+        RecipeLoaded(
+          recipes: _allRecipes,
+          filteredRecipes: currentState.filteredRecipes,
+          favoriteRecipes: favList,
+          favorites: _favorites,
+          searchQuery: currentState.searchQuery,
+          isSearching: currentState.isSearching,
+        ),
+      );
+    }
+  }
+
+  void _onFetchFavorites(FetchFavoritesEvent event, Emitter<RecipeState> emit) {
+    if (state is RecipeLoaded) {
+      final favList = _getFavoriteList();
+      emit(
+        RecipeLoaded(
+          recipes: _allRecipes,
+          filteredRecipes: favList,
+          favoriteRecipes: favList,
+          favorites: _favorites,
+          isSearching: false,
+        ),
+      );
     }
   }
 
@@ -42,26 +90,23 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   ) async {
     if (state is RecipeLoaded) {
       final currentState = state as RecipeLoaded;
-      late List<Recipes> filtered;
-
-      if (event.query.isEmpty) {
-        filtered = _allRecipes;
-      } else {
-        filtered = _allRecipes
-            .where(
-              (recipe) =>
-                  recipe.name?.toLowerCase().contains(
-                    event.query.toLowerCase(),
-                  ) ??
-                  false,
-            )
-            .toList();
-      }
+      List<Recipes> filtered = event.query.isEmpty
+          ? _allRecipes
+          : _allRecipes
+                .where(
+                  (r) =>
+                      r.name?.toLowerCase().contains(
+                        event.query.toLowerCase(),
+                      ) ??
+                      false,
+                )
+                .toList();
 
       emit(
         RecipeLoaded(
           recipes: _allRecipes,
           filteredRecipes: filtered,
+          favoriteRecipes: currentState.favoriteRecipes,
           favorites: _favorites,
           searchQuery: event.query,
           isSearching: currentState.isSearching,
@@ -70,43 +115,17 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     }
   }
 
-  Future<void> _onToggleSearch(
-    ToggleSearchEvent event,
-    Emitter<RecipeState> emit,
-  ) async {
+  void _onToggleSearch(ToggleSearchEvent event, Emitter<RecipeState> emit) {
     if (state is RecipeLoaded) {
       final currentState = state as RecipeLoaded;
       emit(
         RecipeLoaded(
           recipes: _allRecipes,
           filteredRecipes: currentState.filteredRecipes,
+          favoriteRecipes: currentState.favoriteRecipes,
           favorites: _favorites,
           searchQuery: currentState.searchQuery,
           isSearching: !currentState.isSearching,
-        ),
-      );
-    }
-  }
-
-  Future<void> _onToggleFavorite(
-    ToggleFavoriteEvent event,
-    Emitter<RecipeState> emit,
-  ) async {
-    if (state is RecipeLoaded) {
-      final currentState = state as RecipeLoaded;
-      if (_favorites.contains(event.recipeId)) {
-        _favorites.remove(event.recipeId);
-      } else {
-        _favorites.add(event.recipeId);
-      }
-
-      emit(
-        RecipeLoaded(
-          recipes: _allRecipes,
-          filteredRecipes: currentState.filteredRecipes,
-          favorites: _favorites,
-          searchQuery: currentState.searchQuery,
-          isSearching: currentState.isSearching,
         ),
       );
     }

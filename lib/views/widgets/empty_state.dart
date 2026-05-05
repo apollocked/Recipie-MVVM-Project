@@ -2,7 +2,9 @@ import 'package:dio_receipe/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class EmptyRecipeState extends StatelessWidget {
-  const EmptyRecipeState({super.key});
+  const EmptyRecipeState({super.key, required this.message});
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class EmptyRecipeState extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: Text(
-              "Your search didn't serve up any results. Try a different recipe name!",
+              message,
               textAlign: TextAlign.center,
               style: TextStyle(color: deepNavy.withAlpha(700), fontSize: 14),
             ),

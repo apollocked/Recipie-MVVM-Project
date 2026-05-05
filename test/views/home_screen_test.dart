@@ -95,6 +95,7 @@ void main() {
         favorites: const {},
         searchQuery: '',
         isSearching: false,
+        favoriteRecipes: [],
       );
       when(() => recipeBloc.state).thenReturn(loadedState);
       when(
@@ -132,6 +133,7 @@ void main() {
         favorites: const {},
         searchQuery: '',
         isSearching: false,
+        favoriteRecipes: [],
       );
       when(() => recipeBloc.state).thenReturn(loadedState);
       when(
@@ -154,6 +156,7 @@ void main() {
         favorites: const {},
         searchQuery: '',
         isSearching: false,
+        favoriteRecipes: [],
       );
       when(() => recipeBloc.state).thenReturn(loadedState);
       when(
@@ -175,6 +178,7 @@ void main() {
     ) async {
       // Arrange
       final loadedState = RecipeLoaded(
+        favoriteRecipes: [],
         recipes: const [],
         filteredRecipes: const [],
         favorites: const {},
@@ -209,6 +213,7 @@ void main() {
         favorites: const {},
         searchQuery: '',
         isSearching: false,
+        favoriteRecipes: [],
       );
       when(() => recipeBloc.state).thenReturn(loadedState);
       when(
@@ -231,6 +236,7 @@ void main() {
         favorites: const {},
         searchQuery: '',
         isSearching: true,
+        favoriteRecipes: [],
       );
       when(() => recipeBloc.state).thenReturn(searchingState);
       when(
@@ -255,6 +261,7 @@ void main() {
         favorites: const {},
         searchQuery: '',
         isSearching: true,
+        favoriteRecipes: [],
       );
       when(() => recipeBloc.state).thenReturn(searchingState);
       when(

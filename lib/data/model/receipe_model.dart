@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_this, prefer_collection_literals, unnecessary_new
-
 class ReceipeModel {
   List<Recipes>? recipes;
   int? total;
@@ -12,7 +10,7 @@ class ReceipeModel {
     if (json['recipes'] != null) {
       recipes = <Recipes>[];
       json['recipes'].forEach((v) {
-        recipes!.add(new Recipes.fromJson(v));
+        recipes!.add(Recipes.fromJson(v));
       });
     }
     total = json['total'];
@@ -21,13 +19,13 @@ class ReceipeModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.recipes != null) {
-      data['recipes'] = this.recipes!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (recipes != null) {
+      data['recipes'] = recipes!.map((v) => v.toJson()).toList();
     }
-    data['total'] = this.total;
-    data['skip'] = this.skip;
-    data['limit'] = this.limit;
+    data['total'] = total;
+    data['skip'] = skip;
+    data['limit'] = limit;
     return data;
   }
 }
@@ -89,23 +87,23 @@ class Recipes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['ingredients'] = this.ingredients;
-    data['instructions'] = this.instructions;
-    data['prepTimeMinutes'] = this.prepTimeMinutes;
-    data['cookTimeMinutes'] = this.cookTimeMinutes;
-    data['servings'] = this.servings;
-    data['difficulty'] = this.difficulty;
-    data['cuisine'] = this.cuisine;
-    data['caloriesPerServing'] = this.caloriesPerServing;
-    data['tags'] = this.tags;
-    data['userId'] = this.userId;
-    data['image'] = this.image;
-    data['rating'] = this.rating;
-    data['reviewCount'] = this.reviewCount;
-    data['mealType'] = this.mealType;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['ingredients'] = ingredients;
+    data['instructions'] = instructions;
+    data['prepTimeMinutes'] = prepTimeMinutes;
+    data['cookTimeMinutes'] = cookTimeMinutes;
+    data['servings'] = servings;
+    data['difficulty'] = difficulty;
+    data['cuisine'] = cuisine;
+    data['caloriesPerServing'] = caloriesPerServing;
+    data['tags'] = tags;
+    data['userId'] = userId;
+    data['image'] = image;
+    data['rating'] = rating;
+    data['reviewCount'] = reviewCount;
+    data['mealType'] = mealType;
     return data;
   }
 }

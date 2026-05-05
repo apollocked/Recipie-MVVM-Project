@@ -9,6 +9,7 @@ class RecipeLoading extends RecipeState {}
 class RecipeLoaded extends RecipeState {
   final List<Recipes> recipes;
   final List<Recipes> filteredRecipes;
+  final List<Recipes> favoriteRecipes;
   final Set<int> favorites;
   final String searchQuery;
   final bool isSearching;
@@ -16,6 +17,7 @@ class RecipeLoaded extends RecipeState {
   RecipeLoaded({
     required this.recipes,
     required this.filteredRecipes,
+    required this.favoriteRecipes,
     required this.favorites,
     this.searchQuery = "",
     this.isSearching = false,

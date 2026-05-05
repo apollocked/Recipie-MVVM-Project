@@ -44,7 +44,10 @@ class HomeScreen extends StatelessWidget {
 
             if (state is RecipeLoaded) {
               return state.filteredRecipes.isEmpty
-                  ? EmptyRecipeState()
+                  ? EmptyRecipeState(
+                      message:
+                          "Your search didn't serve up any results. Try a different recipe name!",
+                    )
                   : CustomReceipeList(filteredRecipes: state.filteredRecipes);
             }
 
