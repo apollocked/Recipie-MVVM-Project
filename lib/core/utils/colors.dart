@@ -1,9 +1,9 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 
-final Color bgSlate = const Color(0xFFF1F5F9);
-final Color brandAmber = const Color(0xFFFFC107);
-final Color deepNavy = const Color(0xFF0F172A);
+final bgSlate = const Color(0xFFF1F5F9);
+final brandAmber = Colors.yellow.shade600;
+final deepNavy = const Color(0xFF0F172A);
 final yellowColor = Colors.yellow.shade600;
 final blackColor = Colors.black.withOpacity(0.85);
 final appBarColor = blackColor.withOpacity(0.84);

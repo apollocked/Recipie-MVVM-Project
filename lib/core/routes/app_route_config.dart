@@ -1,7 +1,9 @@
 import 'package:dio_receipe/core/routes/app_route_constants.dart';
 import 'package:dio_receipe/global.dart';
 import 'package:dio_receipe/views/Pages/home_screen.dart';
+import 'package:dio_receipe/views/Pages/info_page.dart';
 import 'package:dio_receipe/views/Pages/liked_pages.dart';
+import 'package:dio_receipe/views/Pages/settings_page.dart';
 import 'package:dio_receipe/views/layout/layout_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -41,23 +43,27 @@ class MyAppRouter {
                 ),
               ],
             ),
-
+            // BRANCH 3: SETTINGS
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  name: MyAppRouteConstants.info,
+                  path: '/info',
+                  builder: (context, state) => const InfoPage(),
+                ),
+              ],
+            ),
             // BRANCH 3: SETTINGS
             StatefulShellBranch(
               routes: [
                 GoRoute(
                   name: MyAppRouteConstants.settings,
                   path: '/settings',
-                  builder: (context, state) => const LikedReciepesPage(),
+                  builder: (context, state) => const SettingsPage(),
                 ),
               ],
             ),
           ],
-        ),
-        GoRoute(
-          name: MyAppRouteConstants.details,
-          path: '/details',
-          builder: (context, state) => const LikedReciepesPage(),
         ),
       ],
       redirect: (context, state) {
