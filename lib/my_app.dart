@@ -14,9 +14,10 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => RecipeBloc(RecepieService(baseURL: global.baseURL)),
       child: MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.deepPurple),
         title: 'Recipe App',
         home: HomeScreen(flavorName: global.flavorName),
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: global.flavorName == 'DEVELOPMENT',
       ),
     );
   }

@@ -7,7 +7,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env.dev");
   final global = Global(
-    flavorName: dotenv.env['FLAVOR'] ?? "dev",
+    flavorName: dotenv.env['FLAVOR'] ?? "DEVELOPMENT",
     baseURL: dotenv.env['API_URL'] ?? "",
   );
 
