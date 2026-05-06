@@ -85,7 +85,7 @@ class RecieptCard extends StatelessWidget {
                         offset: const Offset(0, 5),
                       ),
                     ],
-                    color: AppColors.surface.withValues(alpha: 0.3),
+                    color: AppColors.primary.withValues(alpha: 0.3),
                     border: Border.all(
                       color: AppColors.surface.withValues(alpha: 0.3),
                     ),
@@ -93,7 +93,7 @@ class RecieptCard extends StatelessWidget {
                   child: Text(
                     recipe.cuisine?.toUpperCase() ?? "",
                     style: const TextStyle(
-                      color: AppColors.textTertiary,
+                      color: AppColors.surface,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio_receipe/data/model/recipe_model.dart';
 import 'package:dio_receipe/data/repositories/recipe_repository.dart';
 import 'recipe_event.dart';
@@ -6,15 +7,40 @@ import 'recipe_state.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final RecipeRepository recipeRepository;
-  List<Recipes> _allRecipes = [];
-  final Set<int> _favorites = {};
+  final SharedPreferences prefs; // Inject SharedPreferences
 
-  RecipeBloc(this.recipeRepository) : super(RecipeInitial()) {
+  List<Recipes> _allRecipes = [];
+  Set<int> _favorites = {};
+
+  static const String _favoritesKey = 'saved_favorites_key';
+
+  RecipeBloc({required this.recipeRepository, required this.prefs})
+    : super(RecipeInitial()) {
+    _loadFavorites(); // Load saved favorites immediately upon creation
+
     on<FetchRecipesEvent>(_onFetchRecipes);
     on<SearchRecipesEvent>(_onSearchRecipes);
     on<ToggleSearchEvent>(_onToggleSearch);
     on<ToggleFavoriteEvent>(_onToggleFavorite);
     on<FetchFavoritesEvent>(_onFetchFavorites);
+  }
+
+  //  SharedPreferences Logic to save and load favorites
+
+  void _loadFavorites() {
+    final List<String>? savedFavs = prefs.getStringList(_favoritesKey);
+    if (savedFavs != null) {
+      // Convert the List<String> back to a Set<int>
+      _favorites = savedFavs.map((id) => int.parse(id)).toSet();
+    }
+  }
+
+  Future<void> _saveFavorites() async {
+    // Convert the Set<int> into a List<String> for storage
+    final List<String> favStrings = _favorites
+        .map((id) => id.toString())
+        .toList();
+    await prefs.setStringList(_favoritesKey, favStrings);
   }
 
   List<Recipes> _getFavoriteList() {
@@ -29,7 +55,6 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   ) async {
     emit(RecipeLoading());
     try {
-      // BLoC now receives a clean List<Recipes> from the repository
       _allRecipes = await recipeRepository.getAllRecipes();
       emit(
         RecipeLoaded(
@@ -44,7 +69,10 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     }
   }
 
-  void _onToggleFavorite(ToggleFavoriteEvent event, Emitter<RecipeState> emit) {
+  Future<void> _onToggleFavorite(
+    ToggleFavoriteEvent event,
+    Emitter<RecipeState> emit,
+  ) async {
     if (state is RecipeLoaded) {
       final currentState = state as RecipeLoaded;
 
@@ -53,6 +81,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       } else {
         _favorites.add(event.recipeId);
       }
+      await _saveFavorites();
 
       emit(
         RecipeLoaded(

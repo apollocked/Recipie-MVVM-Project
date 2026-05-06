@@ -6,17 +6,24 @@ import 'package:dio_receipe/logic/receipe_bloc/recipe_event.dart';
 import 'package:dio_receipe/logic/receipe_bloc/recipe_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MockRecipeRepository extends Mock implements RecipeRepository {}
 
+class MockSharedPreferences extends Mock implements SharedPreferences {}
+
 void main() {
+  late MockSharedPreferences mockSharedPreferences = MockSharedPreferences();
   late RecipeBloc recipeBloc;
   late MockRecipeRepository mockRecipeRepository;
 
   setUp(() {
     mockRecipeRepository = MockRecipeRepository();
     // Update: Inject the mock repository
-    recipeBloc = RecipeBloc(mockRecipeRepository);
+    recipeBloc = RecipeBloc(
+      prefs: mockSharedPreferences,
+      recipeRepository: mockRecipeRepository,
+    );
   });
 
   tearDown(() {

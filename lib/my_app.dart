@@ -8,21 +8,23 @@ import 'package:dio_receipe/logic/receipe_bloc/recipe_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.global});
-
+  const MyApp({super.key, required this.global, required this.prefs});
+  final SharedPreferences prefs;
   final Global global;
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     return MultiProvider(
       providers: [
         BlocProvider(
           create: (context) {
             final service = RecepieService(baseURL: global.baseURL);
             final repository = RecipeRepository(service);
-            return RecipeBloc(repository);
+
+            return RecipeBloc(recipeRepository: repository, prefs: prefs);
           },
         ),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
