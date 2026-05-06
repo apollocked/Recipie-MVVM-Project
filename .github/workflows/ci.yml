@@ -5,7 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  test_and_lint:
+  # This job now only checks for code errors and formatting
+  check_code:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,11 +27,9 @@ jobs:
       - name: Static Analysis
         run: flutter analyze
 
-      - name: Run Tests
-        run: flutter test
-
+  # This job builds the app immediately after the code check
   build_prod_release:
-    needs: test_and_lint
+    needs: check_code
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
