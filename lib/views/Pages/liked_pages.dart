@@ -16,12 +16,10 @@ class LikedReciepesPage extends StatelessWidget {
       appBar: customAppBar('Liked Reciepes'),
       body: BlocBuilder<RecipeBloc, RecipeState>(
         builder: (context, state) {
-          // 1. Show loading indicator while fetching
           if (state is RecipeLoading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // 2. Build the list if state is Loaded
           if (state is RecipeLoaded) {
             final likedRecipes = state.favoriteRecipes;
 
@@ -33,20 +31,14 @@ class LikedReciepesPage extends StatelessWidget {
               itemCount: likedRecipes.length,
               itemBuilder: (context, index) {
                 final recipe = likedRecipes[index];
-                return RecieptCard(
-                  recipe: recipe,
-                  isFav:
-                      true, // Since it's the favorites page, they are all liked
-                );
+                return RecieptCard(recipe: recipe, isFav: true);
               },
             );
           }
 
-          // 3. Handle errors
           if (state is RecipeError) {
             return Center(child: Text("Error: ${state.message}"));
           }
-
           return const SizedBox.shrink();
         },
       ),

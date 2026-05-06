@@ -33,10 +33,7 @@ class EmptyRecipeState extends StatelessWidget {
             child: Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.primary.withAlpha(700),
-                fontSize: 14,
-              ),
+              style: TextStyle(color: AppColors.textTertiary, fontSize: 14),
             ),
           ),
         ],
