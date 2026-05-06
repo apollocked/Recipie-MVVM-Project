@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:dio_receipe/core/utils/colors.dart';
+import 'package:dio_receipe/core/theme/app_theme.dart';
 import 'package:dio_receipe/data/model/receipe_model.dart';
-import 'package:dio_receipe/view_model/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/recipe_event.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_event.dart';
 import 'package:dio_receipe/views/widgets/custom_icon_design.dart';
 import 'package:dio_receipe/views/widgets/resepie_detail_popup.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RecieptCard extends StatelessWidget {
   const RecieptCard({super.key, required this.recipe, required this.isFav});
 
-  final Recipes recipe;
   final bool isFav;
+  final Recipes recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class RecieptCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(35),
         boxShadow: [
           BoxShadow(
-            color: deepNavy.withValues(alpha: 0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             blurRadius: 25,
             offset: const Offset(0, 15),
           ),
@@ -39,9 +39,8 @@ class RecieptCard extends StatelessWidget {
               child: Image.network(
                 recipe.image ?? '',
                 fit: BoxFit.cover,
-                // Good practice to add a placeholder
                 errorBuilder: (context, error, stackTrace) =>
-                    Container(color: Colors.grey),
+                    Container(color: AppColors.textTertiary),
               ),
             ),
           ),
@@ -55,9 +54,9 @@ class RecieptCard extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withValues(alpha: 0.1),
-                    Colors.transparent,
-                    deepNavy.withValues(alpha: 0.9),
+                    AppColors.primary.withValues(alpha: 0.1),
+                    AppColors.transparent,
+                    AppColors.primary.withValues(alpha: 0.9),
                   ],
                 ),
               ),
@@ -80,20 +79,20 @@ class RecieptCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
+                        color: AppColors.primary.withValues(alpha: 0.1),
                         blurRadius: 10,
                         offset: const Offset(0, 5),
                       ),
                     ],
-                    color: Colors.white.withValues(alpha: 0.3),
+                    color: AppColors.surface.withValues(alpha: 0.3),
                     border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.3),
+                      color: AppColors.surface.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Text(
                     recipe.cuisine?.toUpperCase() ?? "",
                     style: const TextStyle(
-                      color: Colors.black54,
+                      color: AppColors.textTertiary,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
                     ),
@@ -109,14 +108,14 @@ class RecieptCard extends StatelessWidget {
             right: 20,
             child: FloatingActionButton.small(
               heroTag: "fav_${recipe.id}",
-              backgroundColor: isFav ? Colors.redAccent : Colors.white,
+              backgroundColor: isFav ? AppColors.favorite : AppColors.surface,
               elevation: 0,
               onPressed: () => context.read<RecipeBloc>().add(
                 ToggleFavoriteEvent(recipe.id ?? 0),
               ),
               child: Icon(
                 isFav ? Icons.favorite : Icons.favorite_border,
-                color: isFav ? Colors.white : deepNavy,
+                color: isFav ? AppColors.surface : AppColors.primary,
               ),
             ),
           ),
@@ -135,9 +134,9 @@ class RecieptCard extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(25),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.1),
+                    color: AppColors.surface.withValues(alpha: 0.1),
                     border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.1),
+                      color: AppColors.surface.withValues(alpha: 0.1),
                     ),
                   ),
                   child: Column(
@@ -147,7 +146,7 @@ class RecieptCard extends StatelessWidget {
                       Text(
                         recipe.name ?? "",
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: AppColors.textLight,
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
                         ),
@@ -167,8 +166,8 @@ class RecieptCard extends StatelessWidget {
                       const SizedBox(height: 20),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: brandAmber,
-                          foregroundColor: deepNavy,
+                          backgroundColor: AppColors.accent,
+                          foregroundColor: AppColors.textOnAccent,
                           minimumSize: const Size(double.infinity, 54),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18),

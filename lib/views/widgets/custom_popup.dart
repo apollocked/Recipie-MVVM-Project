@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:dio_receipe/core/utils/colors.dart';
+import 'package:dio_receipe/core/theme/app_theme.dart';
 import 'package:dio_receipe/data/model/receipe_model.dart';
 import 'package:dio_receipe/views/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class CustomPopUp extends StatelessWidget {
         Text(
           recipe.name ?? "",
           style: TextStyle(
-            color: deepNavy,
+            color: AppColors.primary,
             fontSize: 24, // Increased for clarity
             fontWeight: FontWeight.w900,
           ),
@@ -26,7 +26,7 @@ class CustomPopUp extends StatelessWidget {
         Text(
           "${recipe.cuisine} • ${recipe.difficulty}".toUpperCase(),
           style: TextStyle(
-            color: brandAmber,
+            color: AppColors.accent,
             fontWeight: FontWeight.bold,
             fontSize: 13,
             letterSpacing: 1.2,
@@ -43,14 +43,18 @@ class CustomPopUp extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.check_circle_outline, color: brandAmber, size: 18),
+                Icon(
+                  Icons.check_circle_outline,
+                  color: AppColors.accent,
+                  size: 18,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     item,
                     style: const TextStyle(
                       fontSize: 16, // Highly readable size
-                      color: Colors.black87,
+                      color: AppColors.textSecondary,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -73,13 +77,13 @@ class CustomPopUp extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 12,
-                  backgroundColor: brandAmber.withOpacity(0.2),
+                  backgroundColor: AppColors.accent.withOpacity(0.2),
                   child: Text(
                     "${entry.key + 1}",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
-                      color: deepNavy,
+                      color: AppColors.primary,
                     ),
                   ),
                 ),
@@ -90,7 +94,7 @@ class CustomPopUp extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16, // Increased for clarity
                       height: 1.5,
-                      color: Colors.black87,
+                      color: AppColors.textSecondary,
                       fontWeight: FontWeight.w400,
                     ),
                   ),

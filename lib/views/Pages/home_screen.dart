@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 
-import 'package:dio_receipe/core/utils/colors.dart';
-import 'package:dio_receipe/view_model/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/recipe_event.dart';
-import 'package:dio_receipe/view_model/recipe_state.dart';
+import 'package:dio_receipe/core/theme/app_theme.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_event.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_state.dart';
 import 'package:dio_receipe/views/layout/custom_appbar.dart';
 import 'package:dio_receipe/views/widgets/custom_recepie_list.dart';
 import 'package:dio_receipe/views/widgets/custom_search_bar.dart';
@@ -18,7 +18,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgSlate,
       appBar: customAppBar('Recipes - $flavorName', child: CustomSearchBar()),
 
       body: RefreshIndicator(
@@ -34,7 +33,7 @@ class HomeScreen extends StatelessWidget {
 
             if (state is RecipeLoading) {
               return Center(
-                child: CircularProgressIndicator(color: brandAmber),
+                child: CircularProgressIndicator(color: AppColors.accent),
               );
             }
 

@@ -1,7 +1,7 @@
-import 'package:dio_receipe/core/utils/colors.dart';
-import 'package:dio_receipe/view_model/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/recipe_event.dart';
-import 'package:dio_receipe/view_model/recipe_state.dart';
+import 'package:dio_receipe/core/theme/app_theme.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_event.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -63,7 +63,7 @@ class _CustomSearchBarState extends State<CustomSearchBar>
                       0.6 *
                       animation!.value,
                   decoration: BoxDecoration(
-                    color: bgSlate,
+                    color: AppColors.background,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: TextField(
@@ -84,7 +84,7 @@ class _CustomSearchBarState extends State<CustomSearchBar>
                           : IconButton(
                               icon: Icon(
                                 Icons.arrow_forward_ios,
-                                color: deepNavy,
+                                color: AppColors.primary,
                               ),
                               onPressed: () {
                                 context.read<RecipeBloc>().add(
@@ -102,7 +102,7 @@ class _CustomSearchBarState extends State<CustomSearchBar>
             );
           } else {
             return IconButton(
-              icon: Icon(Icons.search, color: deepNavy),
+              icon: Icon(Icons.search, color: AppColors.primary),
               onPressed: () {
                 context.read<RecipeBloc>().add(ToggleSearchEvent());
               },

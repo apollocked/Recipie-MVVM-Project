@@ -1,4 +1,4 @@
-import 'package:dio_receipe/core/utils/colors.dart';
+import 'package:dio_receipe/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class EmptyRecipeState extends StatelessWidget {
@@ -16,13 +16,13 @@ class EmptyRecipeState extends StatelessWidget {
           Icon(
             Icons.no_food_rounded,
             size: 80,
-            color: brandAmber.withAlpha(900),
+            color: AppColors.accent.withAlpha(900),
           ),
           const SizedBox(height: 20),
           Text(
             "No Dishes Found",
             style: TextStyle(
-              color: deepNavy,
+              color: AppColors.primary,
               fontSize: 20,
               fontWeight: FontWeight.w900,
             ),
@@ -33,7 +33,10 @@ class EmptyRecipeState extends StatelessWidget {
             child: Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(color: deepNavy.withAlpha(700), fontSize: 14),
+              style: TextStyle(
+                color: AppColors.primary.withAlpha(700),
+                fontSize: 14,
+              ),
             ),
           ),
         ],

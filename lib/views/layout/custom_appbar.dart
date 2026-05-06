@@ -1,4 +1,4 @@
-import 'package:dio_receipe/core/utils/colors.dart';
+import 'package:dio_receipe/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 AppBar customAppBar(
@@ -7,15 +7,15 @@ AppBar customAppBar(
 }) {
   return AppBar(
     toolbarHeight: 65,
-    backgroundColor: yellowColor,
+    backgroundColor: AppColors.accent,
     centerTitle: child.key == Key("emptyKey") ? true : false,
-    shadowColor: shadowColor,
+    shadowColor: AppColors.shadow,
     scrolledUnderElevation: 0,
     elevation: 5,
     title: Text(
       title,
       style: TextStyle(
-        color: blackColor,
+        color: AppColors.textOnAccent,
         fontWeight: FontWeight.w900,
         letterSpacing: 2,
         fontSize: 20,

@@ -1,9 +1,9 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dio_receipe/data/model/receipe_model.dart';
 import 'package:dio_receipe/data/services/recepie_service.dart';
-import 'package:dio_receipe/view_model/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/recipe_event.dart';
-import 'package:dio_receipe/view_model/recipe_state.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_event.dart';
+import 'package:dio_receipe/view_model/receipe_bloc/recipe_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
