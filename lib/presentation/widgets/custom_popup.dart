@@ -1,8 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:dio_receipe/core/theme/app_theme.dart';
-import 'package:dio_receipe/data/model/receipe_model.dart';
-import 'package:dio_receipe/views/widgets/header_widget.dart';
+import 'package:dio_receipe/data/model/recipe_model.dart';
+import 'package:dio_receipe/presentation/widgets/header_widget.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomPopUp extends StatelessWidget {

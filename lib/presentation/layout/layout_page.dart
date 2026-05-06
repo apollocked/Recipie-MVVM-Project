@@ -1,7 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:dio_receipe/core/utils/colors.dart';
-import 'package:dio_receipe/views/layout/bottm_nav.dart';
+import 'package:dio_receipe/core/utils/app_colors.dart';
+import 'package:dio_receipe/presentation/layout/bott0m_nav.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

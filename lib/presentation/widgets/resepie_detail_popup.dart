@@ -1,7 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:dio_receipe/core/theme/app_theme.dart';
-import 'package:dio_receipe/views/widgets/custom_popup.dart';
+import 'package:dio_receipe/presentation/widgets/custom_popup.dart';
+
 import 'package:flutter/material.dart';
 
 Future<dynamic> showDetailsPopUp(dynamic recipe, BuildContext context) {

@@ -1,11 +1,11 @@
-import 'package:dio_receipe/views/layout/custom_appbar.dart';
-import 'package:dio_receipe/views/widgets/empty_state.dart';
-import 'package:dio_receipe/views/widgets/reciept_card.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_state.dart';
+import 'package:dio_receipe/presentation/layout/custom_appbar.dart';
+import 'package:dio_receipe/presentation/widgets/empty_state.dart';
+import 'package:dio_receipe/presentation/widgets/reciept_card.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// Replace with your actual paths
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_state.dart';
 
 class LikedReciepesPage extends StatelessWidget {
   const LikedReciepesPage({super.key});

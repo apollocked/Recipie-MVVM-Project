@@ -1,11 +1,12 @@
 import 'dart:ui';
 
 import 'package:dio_receipe/core/theme/app_theme.dart';
-import 'package:dio_receipe/data/model/receipe_model.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_event.dart';
-import 'package:dio_receipe/views/widgets/custom_icon_design.dart';
-import 'package:dio_receipe/views/widgets/resepie_detail_popup.dart';
+import 'package:dio_receipe/data/model/recipe_model.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_event.dart';
+import 'package:dio_receipe/presentation/widgets/custom_icon_design.dart';
+import 'package:dio_receipe/presentation/widgets/resepie_detail_popup.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

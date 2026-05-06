@@ -1,10 +1,11 @@
-import 'package:dio_receipe/core/routes/app_route_constants.dart';
+import 'package:dio_receipe/core/constants/approutes_constatns.dart';
 import 'package:dio_receipe/global.dart';
-import 'package:dio_receipe/views/Pages/home_screen.dart';
-import 'package:dio_receipe/views/Pages/info_page.dart';
-import 'package:dio_receipe/views/Pages/liked_pages.dart';
-import 'package:dio_receipe/views/Pages/settings_page.dart';
-import 'package:dio_receipe/views/layout/layout_page.dart';
+import 'package:dio_receipe/presentation/layout/layout_page.dart';
+import 'package:dio_receipe/presentation/pages/home_screen.dart';
+import 'package:dio_receipe/presentation/pages/info_page.dart';
+import 'package:dio_receipe/presentation/pages/liked_pages.dart';
+import 'package:dio_receipe/presentation/pages/settings_page.dart';
+
 import 'package:go_router/go_router.dart';
 
 class MyAppRouter {
@@ -25,7 +26,7 @@ class MyAppRouter {
             StatefulShellBranch(
               routes: [
                 GoRoute(
-                  name: MyAppRouteConstants.home,
+                  name: ApproutesConstatns.home,
                   path: '/',
                   builder: (context, state) =>
                       HomeScreen(flavorName: global.flavorName),
@@ -37,7 +38,7 @@ class MyAppRouter {
             StatefulShellBranch(
               routes: [
                 GoRoute(
-                  name: MyAppRouteConstants.favs,
+                  name: ApproutesConstatns.favs,
                   path: '/favs',
                   builder: (context, state) => LikedReciepesPage(),
                 ),
@@ -47,7 +48,7 @@ class MyAppRouter {
             StatefulShellBranch(
               routes: [
                 GoRoute(
-                  name: MyAppRouteConstants.info,
+                  name: ApproutesConstatns.info,
                   path: '/info',
                   builder: (context, state) => const InfoPage(),
                 ),
@@ -57,7 +58,7 @@ class MyAppRouter {
             StatefulShellBranch(
               routes: [
                 GoRoute(
-                  name: MyAppRouteConstants.settings,
+                  name: ApproutesConstatns.settings,
                   path: '/settings',
                   builder: (context, state) => const SettingsPage(),
                 ),

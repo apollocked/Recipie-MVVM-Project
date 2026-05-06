@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio_receipe/data/model/receipe_model.dart';
-import 'package:dio_receipe/data/services/recepie_service.dart';
+import 'package:dio_receipe/data/model/recipe_model.dart';
+import 'package:dio_receipe/data/repositories/recipe_repository.dart';
 import 'recipe_event.dart';
 import 'recipe_state.dart';
 
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
-  final RecepieService recipeService;
+  final RecipeRepository recipeRepository;
   List<Recipes> _allRecipes = [];
   final Set<int> _favorites = {};
 
-  RecipeBloc(this.recipeService) : super(RecipeInitial()) {
+  RecipeBloc(this.recipeRepository) : super(RecipeInitial()) {
     on<FetchRecipesEvent>(_onFetchRecipes);
     on<SearchRecipesEvent>(_onSearchRecipes);
     on<ToggleSearchEvent>(_onToggleSearch);
@@ -29,8 +29,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   ) async {
     emit(RecipeLoading());
     try {
-      final recipeModel = await recipeService.getRecepie();
-      _allRecipes = recipeModel.recipes ?? [];
+      // BLoC now receives a clean List<Recipes> from the repository
+      _allRecipes = await recipeRepository.getAllRecipes();
       emit(
         RecipeLoaded(
           recipes: _allRecipes,
@@ -54,13 +54,11 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
         _favorites.add(event.recipeId);
       }
 
-      final favList = _getFavoriteList();
-
       emit(
         RecipeLoaded(
           recipes: _allRecipes,
           filteredRecipes: currentState.filteredRecipes,
-          favoriteRecipes: favList,
+          favoriteRecipes: _getFavoriteList(),
           favorites: _favorites,
           searchQuery: currentState.searchQuery,
           isSearching: currentState.isSearching,

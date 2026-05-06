@@ -1,4 +1,4 @@
-import 'package:dio_receipe/views/layout/custom_appbar.dart';
+import 'package:dio_receipe/presentation/layout/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class InfoPage extends StatelessWidget {

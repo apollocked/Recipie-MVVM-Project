@@ -1,4 +1,4 @@
-import 'package:dio_receipe/data/model/receipe_model.dart';
+import 'package:dio_receipe/data/model/recipe_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

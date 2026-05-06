@@ -1,6 +1,6 @@
 import 'package:dio_receipe/core/theme/app_theme.dart';
-import 'package:dio_receipe/view_model/providers/theme_provider.dart';
-import 'package:dio_receipe/views/layout/custom_appbar.dart';
+import 'package:dio_receipe/logic/providers/theme_provider.dart';
+import 'package:dio_receipe/presentation/layout/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

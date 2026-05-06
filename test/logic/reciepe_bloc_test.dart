@@ -1,21 +1,22 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:dio_receipe/data/model/receipe_model.dart';
-import 'package:dio_receipe/data/services/recepie_service.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_event.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_state.dart';
+import 'package:dio_receipe/data/model/recipe_model.dart';
+import 'package:dio_receipe/data/repositories/recipe_repository.dart'; //
+import 'package:dio_receipe/logic/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_event.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockRecipeService extends Mock implements RecepieService {}
+class MockRecipeRepository extends Mock implements RecipeRepository {}
 
 void main() {
   late RecipeBloc recipeBloc;
-  late MockRecipeService mockRecipeService;
+  late MockRecipeRepository mockRecipeRepository;
 
   setUp(() {
-    mockRecipeService = MockRecipeService();
-    recipeBloc = RecipeBloc(mockRecipeService);
+    mockRecipeRepository = MockRecipeRepository();
+    // Update: Inject the mock repository
+    recipeBloc = RecipeBloc(mockRecipeRepository);
   });
 
   tearDown(() {
@@ -23,8 +24,7 @@ void main() {
   });
 
   // Mock Data
-  final tRecipe = Recipes(id: 1, name: 'Pasta');
-  final tRecipeModel = ReceipeModel(recipes: [tRecipe]);
+  final tRecipes = [Recipes(id: 1, name: 'Pasta')];
 
   group('RecipeBloc Tests', () {
     test('initial state should be RecipeInitial', () {
@@ -34,10 +34,10 @@ void main() {
     blocTest<RecipeBloc, RecipeState>(
       'emits [RecipeLoading, RecipeLoaded] when FetchRecipesEvent is successful',
       build: () {
-        // Mocking the service response
+        // Update: Mock the repository method, which returns List<Recipes>
         when(
-          () => mockRecipeService.getRecepie(),
-        ).thenAnswer((_) async => tRecipeModel);
+          () => mockRecipeRepository.getAllRecipes(),
+        ).thenAnswer((_) async => tRecipes);
         return recipeBloc;
       },
       act: (bloc) => bloc.add(FetchRecipesEvent()),
@@ -50,8 +50,9 @@ void main() {
     blocTest<RecipeBloc, RecipeState>(
       'emits [RecipeLoading, RecipeError] when FetchRecipesEvent fails',
       build: () {
+        // Update: Mocking the repository failure
         when(
-          () => mockRecipeService.getRecepie(),
+          () => mockRecipeRepository.getAllRecipes(),
         ).thenThrow(Exception('Network Error'));
         return recipeBloc;
       },
@@ -70,15 +71,15 @@ void main() {
       'emits updated RecipeLoaded with filtered list when SearchRecipesEvent is added',
       build: () {
         when(
-          () => mockRecipeService.getRecepie(),
-        ).thenAnswer((_) async => tRecipeModel);
+          () => mockRecipeRepository.getAllRecipes(),
+        ).thenAnswer((_) async => tRecipes);
         return recipeBloc;
       },
       act: (bloc) async {
-        bloc.add(FetchRecipesEvent()); // First get data
+        bloc.add(FetchRecipesEvent());
         bloc.add(SearchRecipesEvent('non-existent'));
       },
-      skip: 2, // Skip Initial -> Loading -> Loaded
+      skip: 2,
       expect: () => [
         isA<RecipeLoaded>().having(
           (s) => s.filteredRecipes,
@@ -92,8 +93,8 @@ void main() {
       'emits RecipeLoaded with updated favorites when ToggleFavoriteEvent is added',
       build: () {
         when(
-          () => mockRecipeService.getRecepie(),
-        ).thenAnswer((_) async => tRecipeModel);
+          () => mockRecipeRepository.getAllRecipes(),
+        ).thenAnswer((_) async => tRecipes);
         return recipeBloc;
       },
       act: (bloc) async {

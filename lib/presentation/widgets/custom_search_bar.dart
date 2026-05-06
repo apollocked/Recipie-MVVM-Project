@@ -1,7 +1,7 @@
 import 'package:dio_receipe/core/theme/app_theme.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_event.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_state.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_event.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

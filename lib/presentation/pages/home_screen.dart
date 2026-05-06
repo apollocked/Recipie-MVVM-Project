@@ -1,13 +1,13 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 
 import 'package:dio_receipe/core/theme/app_theme.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_bloc.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_event.dart';
-import 'package:dio_receipe/view_model/receipe_bloc/recipe_state.dart';
-import 'package:dio_receipe/views/layout/custom_appbar.dart';
-import 'package:dio_receipe/views/widgets/custom_recepie_list.dart';
-import 'package:dio_receipe/views/widgets/custom_search_bar.dart';
-import 'package:dio_receipe/views/widgets/empty_state.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_bloc.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_event.dart';
+import 'package:dio_receipe/logic/receipe_bloc/recipe_state.dart';
+import 'package:dio_receipe/presentation/layout/custom_appbar.dart';
+import 'package:dio_receipe/presentation/widgets/custom_recepie_list.dart';
+import 'package:dio_receipe/presentation/widgets/custom_search_bar.dart';
+import 'package:dio_receipe/presentation/widgets/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

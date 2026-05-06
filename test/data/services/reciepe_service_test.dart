@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:dio_receipe/data/model/receipe_model.dart';
-import 'package:dio_receipe/data/services/recepie_service.dart'; // Adjust path if needed
+import 'package:dio_receipe/data/model/recipe_model.dart';
+import 'package:dio_receipe/data/services/recipe_service.dart'; // Adjust path if needed
 
 class MockDio extends Mock implements Dio {}
 
