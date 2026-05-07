@@ -11,6 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache Pub Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -61,7 +68,7 @@ jobs:
           echo "storeFile=upload-keystore.jks" >> android/key.properties
 
       - name: Build AppBundle (Prod)
-        run: flutter build appbundle --release --flavor prod
+        run: flutter build appbundle --release --flavor prod --target lib/main_prod.dart
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

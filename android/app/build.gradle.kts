@@ -1,7 +1,12 @@
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.projectDir.parentFile.toPath().resolve("android/key.properties").toFile()
+import java.util.Properties
+import java.io.FileInputStream
+
+// 1. Correct Kotlin way to load properties
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.projectDir.parentFile.resolve("key.properties")
+
 if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
 plugins {
@@ -11,6 +16,7 @@ plugins {
 }
 
 android {
+
     namespace = "com.example.dio_receipe"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
@@ -33,22 +39,25 @@ android {
     }
 
     signingConfigs {
-        release {
-            keyAlias = keystoreProperties['keyAlias']
-            keyPassword = keystoreProperties['keyPassword']
-            storeFile = keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword = keystoreProperties['storePassword']
+        // 2. Use create() or getByName() in Kotlin DSL
+        create("release") {
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = keystoreProperties.getProperty("storeFile")?.let { file(it) }
+            storePassword = keystoreProperties.getProperty("storePassword")
         }
     }
 
     buildTypes {
-        release {
-            // 2. Updated from debug to release config
-            signingConfig = signingConfigs.release
+        getByName("release") {
+            // 3. Updated syntax for signingConfig and minification
+            signingConfig = signingConfigs.getByName("release")
             
-            // Recommended for production builds
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            isMinifyEnabled = true 
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), 
+                "proguard-rules.pro"
+            )
         }
     }
 

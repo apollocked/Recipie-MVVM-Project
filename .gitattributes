@@ -5,12 +5,10 @@ windows/* linguist-documentation
 linux/* linguist-documentation
 macos/* linguist-documentation
 web/* linguist-documentation
-
 # Treat CMake and C++ build files as documentation/vendor
 *.cpp linguist-documentation
 *.h linguist-documentation
 *.cmake linguist-documentation
 CMakeLists.txt linguist-documentation
-
 # Ensure Dart is the primary detectable language
 *.dart linguist-detectable=true
